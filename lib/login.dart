@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:carfuel/home.dart';
 import 'package:flutter/material.dart';
 
 class login extends StatelessWidget {
@@ -17,9 +20,35 @@ class _loginpageState extends State<loginpage> {
   String _email = "";
   String _password = "";
   final formLogin = new GlobalKey<FormState>();
+  var base = Helper
 
-  //aqui vai a parte para validar
+  void _validarLogin() async{
+    final form = formLogin.currentState;
 
+    User user =
+    if(form.validate()){
+      form.save();
+
+      //quando criar o banco trocar..
+      if(_email == 'luisaugusto'){
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>home()));
+      }else{
+        setState(() {
+          test = false;
+        });
+        Future.delayed(
+          Duration(
+            seconds: 3
+          ),
+            (){
+            setState(() {
+              test = true;
+            });
+            }
+        );
+     }
+    }
+  }
   @override
   Widget build(BuildContext context) {
     final emailField = TextFormField(
@@ -50,7 +79,7 @@ class _loginpageState extends State<loginpage> {
               seconds: 2,
             ),
             curve: Curves.slowMiddle,
-            //color: valida ? Colors.greenAccent : Colors.blueGrey,
+            color: test ? Colors.greenAccent : Colors.blueGrey,
             height: MediaQuery.of(context).size.height,
             child: Padding(
               padding: const EdgeInsets.all(36),
@@ -66,12 +95,13 @@ class _loginpageState extends State<loginpage> {
                           'assets/img/carfuelSplash.png', width: 100,//color:  valida ? Colors.black : Colors.red,
                 ),
                         Text('ajustar validação senha'),
-                        /*Text(
-                          //valida ? '' : 'Dados inválidos!',
+                        Text(
+                          test ? '' : 'Dados inválidos!',
                           style: TextStyle(
                             fontSize: 20,
                             color: Colors.red,
-                          ),*/
+                          ),
+                        ),
                         ],
                     ),
                     SizedBox(
@@ -89,7 +119,7 @@ class _loginpageState extends State<loginpage> {
                       color: Colors.blue,
                       elevation: 5.0,
                       child: Text('Login'),
-                      //onPressed: _validarLogin,
+                      onPressed: _validarLogin,
                     ),
                     SizedBox(
                       height: 15,

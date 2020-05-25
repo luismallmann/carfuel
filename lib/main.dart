@@ -1,3 +1,4 @@
+import 'package:carfuel/home.dart';
 import 'package:carfuel/login.dart';
 import 'package:carfuel/splash.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +17,7 @@ class carfuel extends StatelessWidget {
         home: splash(),
       routes: <String, WidgetBuilder>{
       '/login': (BuildContext context) => loginpage(),
+        '/home': (BuildContext context) => home(),
       },
     );
   }
