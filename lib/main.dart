@@ -17,7 +17,7 @@ class carfuel extends StatelessWidget {
         home: splash(),
       routes: <String, WidgetBuilder>{
       '/login': (BuildContext context) => loginpage(),
-        '/home': (BuildContext context) => home(),
+        '/home': (BuildContext context) => Home(),
       },
     );
   }
