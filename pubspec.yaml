@@ -28,6 +28,8 @@ dependencies:
   shared_preferences:
   path:
   sqflite:
+  datetime_picker_formfield:
+  intl:
 
 
 

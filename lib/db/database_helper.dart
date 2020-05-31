@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io' as io;
 
+import 'package:carfuel/models/abastecer.dart';
 import 'package:carfuel/models/carro.dart';
 import 'package:carfuel/models/usuario.dart';
 import 'package:flutter/material.dart';
@@ -43,7 +44,7 @@ class DatabaseHelper {
         "CREATE TABLE carro (idCarro INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, modelo TEXT, fabricante TEXT, placa TEXT, ano int, kmInicial double, FK_idUsuario int NOT NULL);");
 
     await db.execute(
-        "CREATE TABLE abastecer (idAbastecimento INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, valor double, quantidade double, kmAtual double, FK_idCarro int);");
+        "CREATE TABLE abastecer (idAbastecimento INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, valor double, quantidade double, kmAtual double, dataAbastecimento TEXT, FK_idCarro int);");
   }
 
   //usuario
@@ -106,6 +107,7 @@ class DatabaseHelper {
     var dbClient = await db;
     int res = await dbClient.insert("carro", c.toMap());
     debugPrint("$res");
+    print('ok salvo');
     return res;
   }
 
@@ -118,8 +120,6 @@ class DatabaseHelper {
           list[i]["placa"], list[i]["ano"], list[i]["kmInicial"], list[i]["FK_idUsuario"]);
       carros.add(c);
     }
-    print(carros.length);
-
     return carros;
   }
 
@@ -138,4 +138,46 @@ class DatabaseHelper {
 
     return res > 0 ? true : false;
   }
+
+
+  //abastecemimento
+  Future<int> saveAbastecimento(Abastecer a) async {
+    var dbClient = await db;
+    int res = await dbClient.insert("abastecer", a.toMap());
+    debugPrint("$res");
+    return res;
+  }
+
+  Future<List<Abastecer>> listarAbastecimento() async {
+    var dbClient = await db;
+    List<Map> list = await dbClient.rawQuery('SELECT * FROM abastecimento ORDER BY idAbastecimento');
+    List<Abastecer> abastecimento = new List();
+    for (int i = 0; i < list.length; i++) {
+      var a = new Abastecer(list[i]["idAbastecimento"], list[i]["valor"], list[i]["quantidade"],
+          list[i]["kmAtual"],list[i]['dataAbastecimento'], list[i]["FK_idCarro"]);
+      abastecimento.add(a);
+    }
+    print(abastecimento.length);
+
+    return abastecimento;
+  }
+
+  Future<int> deleteAbastecimento(Abastecer a) async {
+    var dbClient = await db;
+
+    int res = await dbClient.rawDelete('DELETE FROM abastecer WHERE idAbastecimento = ?', [a.idAbastecimento]);
+    return res;
+  }
+
+  Future<bool> updateAbastecimento(Abastecer a) async {
+    var dbClient = await db;
+
+    int res = await dbClient
+        .update("abastecer", a.toMap(), where: "idAbastecimento = ?", whereArgs: <int>[a.idAbastecimento]);
+
+    return res > 0 ? true : false;
+  }
+
+
+
 }

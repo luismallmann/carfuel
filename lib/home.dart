@@ -1,3 +1,4 @@
+import 'package:carfuel/addAbastecimento.dart';
 import 'package:carfuel/addCarro.dart';
 import 'package:carfuel/db/database_helper.dart';
 import 'package:carfuel/models/carro.dart';
@@ -16,10 +17,13 @@ class _HomeState extends State<Home> {
   int _index = 0;
   var base = DatabaseHelper();
   List<Carro> _mostrarCarros;
+
+  void _exibirCarros() async {
+    _mostrarCarros = await base.listarCarros();
+  }
+
   Widget _getBody(){
-    void _exibirCarros() async {
-       _mostrarCarros = await base.listarCarros();
-    }
+    _exibirCarros();
     switch(_index) {
       case 0: return Container(
         child:Column(
@@ -40,7 +44,7 @@ class _HomeState extends State<Home> {
                 ButtonTheme(
                   minWidth: 200,
                     child: RaisedButton.icon(
-                    onPressed: _exibirCarros,
+                    onPressed: ()=> showDialog(context: context, builder: (context) => CadastrarAbastecimento(user: widget.user)),
                   textColor: Colors.white,
                   color: Colors.blue,
                     shape: RoundedRectangleBorder(
@@ -69,7 +73,7 @@ class _HomeState extends State<Home> {
         ),
         color: Colors.amber,
       );
-      case 1: _exibirCarros(); return ListView.builder(
+      case 1: return ListView.builder(
             itemCount: _mostrarCarros.length,
             itemBuilder: (
                 BuildContext context, int index) {
@@ -90,9 +94,7 @@ class _HomeState extends State<Home> {
                             RichText(
                               text: TextSpan(
                                   children: <TextSpan>[
-                                    TextSpan(text:_mostrarCarros
-                                        .elementAt(index)
-                                        .fabricante + _mostrarCarros.elementAt(index).modelo,
+                                    TextSpan(text:_mostrarCarros.elementAt(index).fabricante +'/'+ _mostrarCarros.elementAt(index).modelo,
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold,
                                             color: Colors.indigo,
