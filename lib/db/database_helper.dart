@@ -107,7 +107,6 @@ class DatabaseHelper {
     var dbClient = await db;
     int res = await dbClient.insert("carro", c.toMap());
     debugPrint("$res");
-    print('ok salvo');
     return res;
   }
 
@@ -123,10 +122,13 @@ class DatabaseHelper {
     return carros;
   }
 
-  Future<int> deleteCarro(Carro c) async {
+  Future<int> deleteCarro(int idCar) async {
     var dbClient = await db;
+    int res = await dbClient.rawDelete('DELETE FROM carro WHERE idCarro = ?', [idCar]);
 
-    int res = await dbClient.rawDelete('DELETE FROM carro WHERE idCarro = ?', [c.idCarro]);
+    print(idCar);
+    print(idCar+res);
+    debugPrint("$res");
     return res;
   }
 
