@@ -1,9 +1,8 @@
 import 'dart:async';
-
-import 'package:carfuel/addUser.dart';
+import 'package:carfuel/addUsuario.dart';
 import 'package:carfuel/db/database_helper.dart';
 import 'package:carfuel/home.dart';
-import 'package:carfuel/models/user.dart';
+import 'package:carfuel/models/usuario.dart';
 import 'package:flutter/material.dart';
 
 class Login extends StatelessWidget {
@@ -33,8 +32,8 @@ class _loginpageState extends State<loginpage> {
 
       User user = await base.validateLogin(_email, _password);
       //quando criar o banco trocar.. user != null
-      if(_email == 'luisaugusto'){
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>Home()));
+      if(user != null){
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>Home(user:user)));
       }else{
         setState(() {
           test = false;
@@ -65,7 +64,7 @@ class _loginpageState extends State<loginpage> {
     );
 
     final passwordField = TextFormField(
-      onSaved: (valor) => _email = valor,
+      onSaved: (valor) => _password = valor,
       validator: (valor){
         return valor.length < 10 ? 'senha > 10 carac' : null;
       },
@@ -128,7 +127,7 @@ class _loginpageState extends State<loginpage> {
                       height: 15,
                     ),
                     FlatButton(
-                        onPressed: () => showDialog(context: context, builder: (context) => CadastrarUser()),
+                        onPressed: () => showDialog(context: context, builder: (context) => CadastrarUsuario()),
                         child: Text('Registre-se', style: TextStyle(fontSize: 25, color: Colors.orange)))
                   ],
                 ),
