@@ -152,7 +152,7 @@ class DatabaseHelper {
 
   Future<List<Abastecer>> listarAbastecimento() async {
     var dbClient = await db;
-    List<Map> list = await dbClient.rawQuery('SELECT * FROM abastecimento ORDER BY idAbastecimento');
+    List<Map> list = await dbClient.rawQuery('SELECT * FROM abastecer ORDER BY idAbastecimento');
     List<Abastecer> abastecimento = new List();
     for (int i = 0; i < list.length; i++) {
       var a = new Abastecer(list[i]["idAbastecimento"], list[i]["valor"], list[i]["quantidade"],
@@ -179,6 +179,7 @@ class DatabaseHelper {
 
     return res > 0 ? true : false;
   }
+
 
 
 

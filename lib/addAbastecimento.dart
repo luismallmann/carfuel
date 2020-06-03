@@ -36,7 +36,6 @@ class _CadastrarAbastecimentoState extends State<CadastrarAbastecimento> {
   @override
   void initState() {
     super.initState();
-    // Chama o método getJSONData() quando a app inicializa
     this._exibirCarros();
   }
   void _adicionarAbastecimento() async{

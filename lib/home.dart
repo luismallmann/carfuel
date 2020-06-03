@@ -1,6 +1,7 @@
 import 'package:carfuel/addAbastecimento.dart';
 import 'package:carfuel/addCarro.dart';
 import 'package:carfuel/db/database_helper.dart';
+import 'package:carfuel/exibirAbastecimentos.dart';
 import 'package:carfuel/models/carro.dart';
 import 'package:carfuel/models/usuario.dart';
 import 'package:flutter/cupertino.dart';
@@ -137,6 +138,7 @@ class _HomeState extends State<Home> {
                                 IconButton(
                                   icon: Icon(Icons.pageview),
                                   iconSize: 40,
+                                  onPressed: () => showDialog(context: context, builder: (context) => ExibirAbastecimentos()),
                                 ),
                                 IconButton(
                                     icon: Icon(Icons.delete),
