@@ -30,6 +30,7 @@ dependencies:
   sqflite:
   datetime_picker_formfield:
   intl:
+  flutter_icons:
 
 
 

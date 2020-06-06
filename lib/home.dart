@@ -107,20 +107,16 @@ class _HomeState extends State<Home> {
                             RichText(
                               text: TextSpan(
                                   children: <TextSpan>[
-                                    TextSpan(text: _mostrarCarros
-                                        .elementAt(index)
-                                        .fabricante + '/' + _mostrarCarros
-                                        .elementAt(index)
-                                        .modelo,
+                                    TextSpan(text: _mostrarCarros.elementAt(index).fabricante
+                                        + '/' +
+                                        _mostrarCarros.elementAt(index).modelo,
                                         style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           color: Colors.indigo,
                                           fontSize: 20,
                                         )
                                     ),
-                                    TextSpan(text: '\n' + _mostrarCarros
-                                        .elementAt(index)
-                                        .placa,
+                                    TextSpan(text: '\n' + _mostrarCarros.elementAt(index).placa,
                                         style: TextStyle(
                                             color: Colors.indigoAccent,
                                             fontSize: 18))
