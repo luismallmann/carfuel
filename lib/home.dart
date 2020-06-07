@@ -2,6 +2,7 @@ import 'package:carfuel/addAbastecimento.dart';
 import 'package:carfuel/addCarro.dart';
 import 'package:carfuel/db/database_helper.dart';
 import 'package:carfuel/exibirAbastecimentos.dart';
+import 'package:carfuel/models/calculos.dart';
 import 'package:carfuel/models/carro.dart';
 import 'package:carfuel/models/usuario.dart';
 import 'package:flutter/cupertino.dart';
@@ -18,7 +19,23 @@ class _HomeState extends State<Home> {
   int selecionado=-1;
   int _index = 0;
   var base = DatabaseHelper();
+  var calcula = Calculos();
+  String calculo;
   List<Carro> _mostrarCarros;
+
+  Future<String> _calcular () async {
+    var buscar = await calcula.mediaGeral();
+    setState(() {
+      calculo = buscar;
+    });
+    return 'ok';
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    this._calcular();
+  }
 
   void _exibirCarros() async {
     _mostrarCarros = await base.listarCarros();
@@ -31,21 +48,106 @@ class _HomeState extends State<Home> {
         return Container(
           child: Column(
             children: <Widget>[
-              Expanded(
-                child: Card(
-                  child: Text('Média Geral'),
-                ),
+              Row(
+                children: <Widget>[
+                  Expanded(
+                    flex: 1,
+                    child: Card(
+                        margin: EdgeInsets.all(40),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(25.0)),
+                        ),
+                        child: Container(
+                          child: Column(
+                            children: <Widget>[
+                              SizedBox(
+                                height: 25,
+                              ),
+                              Text('Custo Médio por km [GERAL]\n(R\$/L)',
+                              textAlign:TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 25,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.red
+                              )),
+                              Expanded(
+                                flex: 1,
+                                child: Container(),
+                              ),
+                              Text('22.22',
+                                  textAlign:TextAlign.center,
+                                  style: TextStyle(
+                                      fontSize: 80,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black
+                                  )),
+                              Expanded(
+                                flex: 1,
+                                child: Container(),
+                              )
+                            ],
+                          ),
+                          height: 250,
+                        )
+                    ),
+                  )
+                ],
+              ),
+              Row(
+                children: <Widget>[
+                  Expanded(
+                    flex: 1,
+                    child: Card(
+                        margin: EdgeInsets.all(40),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(25.0)),
+                        ),
+                        child: Container(
+                          child: Column(
+                            children: <Widget>[
+                              SizedBox(
+                                height: 25,
+                              ),
+                              Text('Distância Média por Litro [GERAL]\n(km/L)',
+                                  textAlign:TextAlign.center,
+                                  style: TextStyle(
+                                      fontSize: 25,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.red
+                                  )),
+                              Expanded(
+                                flex: 1,
+                                child: Container(),
+                              ),
+                              Text(calculo,
+                                  textAlign:TextAlign.center,
+                                  style: TextStyle(
+                                      fontSize: 80,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black
+                                  )),
+                              Expanded(
+                                flex: 1,
+                                child: Container(),
+                              )
+                            ],
+                          ),
+                          height: 250,
+                        )
+                    ),
+                  )
+                ],
               ),
               Expanded(
-                child: Card(
-                  child: Text('Custo Geral'),
-                ),
+                flex: 1,
+                child: Container(),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   ButtonTheme(
-                      minWidth: 200,
+                    height: 80,
+                      minWidth: 250,
                       child: RaisedButton.icon(
                         onPressed: () =>
                             showDialog(context: context,
@@ -57,12 +159,13 @@ class _HomeState extends State<Home> {
                             borderRadius: BorderRadius.all(
                                 Radius.circular(10.0))
                         ),
-                        icon: Icon(Icons.add_circle),
-                        label: Text('Abastecimento'),
+                        icon: Icon(Icons.add_circle, size: 60,),
+                        label: Text('Abastecimento', style: TextStyle(fontSize: 20)),
                       )
                   ),
                   ButtonTheme(
-                    minWidth: 200,
+                    minWidth: 250,
+                    height: 80,
                     child: RaisedButton.icon(
                       onPressed: () =>
                           showDialog(context: context,
@@ -73,12 +176,16 @@ class _HomeState extends State<Home> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(10.0)),
                       ),
-                      icon: Icon(Icons.add_circle),
-                      label: Text('Veículo'),
+                      icon: Icon(Icons.add_circle, size: 60,),
+                      label: Text('Veículo', style: TextStyle(fontSize: 20),),
                     ),
                   )
                 ],
-              )
+              ),
+              Expanded(
+                flex: 1,
+                child: Container(),
+              ),
             ],
           ),
           color: Colors.amber,
@@ -178,7 +285,7 @@ class _HomeState extends State<Home> {
                         ),
                       ),
                     ],
-                  )
+                  ),
               );
             }
         );
@@ -199,6 +306,7 @@ class _HomeState extends State<Home> {
           _index = index;
           debugPrint('$_index');
         }),
+        iconSize: 50,
         backgroundColor: Colors.green,
         unselectedItemColor: Colors.red,
         selectedItemColor: Colors.amber,
@@ -206,13 +314,13 @@ class _HomeState extends State<Home> {
         items: [
           BottomNavigationBarItem(
               icon: Icon(Icons.home),
-              title: Text('Home')),
+              title: Text('Home',style: TextStyle(fontSize: 20))),
           BottomNavigationBarItem(
               icon:Icon(Icons.train),
-              title: Text('Veículos')),
+              title: Text('Veículos',style: TextStyle(fontSize: 20))),
           BottomNavigationBarItem(
               icon: Icon(Icons.supervised_user_circle),
-              title: Text('Perfil'))
+              title: Text('Perfil',style: TextStyle(fontSize: 20)))
         ],
       ),
     );
