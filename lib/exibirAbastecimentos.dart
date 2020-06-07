@@ -35,25 +35,25 @@ class _ExibirAbastecimentosState extends State<ExibirAbastecimentos> {
     final estiloPrincipal = TextStyle(
       fontSize: 18,
       fontWeight: FontWeight.bold,
-      color: Colors.black
+      color: Colors.blueGrey[600]
     );
     final estiloConteudo = TextStyle(
         fontSize: 16,
         fontWeight: FontWeight.normal,
-        color: Colors.black,
+        color: Colors.blueGrey[400],
     );
     return Card(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               Container(
-                color: Colors.green,
+                color: Colors.blueGrey[800],
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Text('  Relatório de Abastecimento',style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),),
+                    Text('  Relatório de Abastecimento',style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),),
                     IconButton(
-                      icon: Icon(Icons.exit_to_app),
+                      icon: Icon(Icons.exit_to_app, color: Colors.blueGrey[100],),
                       iconSize: 48,
                       onPressed: () {
                         Navigator.of(context).pop();},

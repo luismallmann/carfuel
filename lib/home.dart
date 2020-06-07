@@ -47,6 +47,7 @@ class _HomeState extends State<Home> {
       case 0:
         _calcular();
         return Container(
+          color: Colors.blueGrey[200],
           child: Column(
             children: <Widget>[
               Row(
@@ -69,7 +70,7 @@ class _HomeState extends State<Home> {
                               style: TextStyle(
                                 fontSize: 25,
                                 fontWeight: FontWeight.bold,
-                                color: Colors.red
+                                color: Colors.blueGrey[800]
                               )),
                               Expanded(
                                 flex: 1,
@@ -80,7 +81,7 @@ class _HomeState extends State<Home> {
                                   style: TextStyle(
                                       fontSize: 80,
                                       fontWeight: FontWeight.bold,
-                                      color: Colors.black
+                                      color: Colors.orange
                                   )),
                               Expanded(
                                 flex: 1,
@@ -114,7 +115,7 @@ class _HomeState extends State<Home> {
                                   style: TextStyle(
                                       fontSize: 25,
                                       fontWeight: FontWeight.bold,
-                                      color: Colors.red
+                                      color: Colors.blueGrey[800]
                                   )),
                               Expanded(
                                 flex: 1,
@@ -125,7 +126,7 @@ class _HomeState extends State<Home> {
                                   style: TextStyle(
                                       fontSize: 80,
                                       fontWeight: FontWeight.bold,
-                                      color: Colors.black
+                                      color: Colors.green
                                   )),
                               Expanded(
                                 flex: 1,
@@ -189,7 +190,6 @@ class _HomeState extends State<Home> {
               ),
             ],
           ),
-          color: Colors.amber,
         );
       case 1:
         return ListView.builder(
@@ -220,13 +220,13 @@ class _HomeState extends State<Home> {
                                         _mostrarCarros.elementAt(index).modelo,
                                         style: TextStyle(
                                           fontWeight: FontWeight.bold,
-                                          color: Colors.indigo,
+                                          color: Colors.blueGrey[800],
                                           fontSize: 22,
                                         )
                                     ),
                                     TextSpan(text: '\n' + _mostrarCarros.elementAt(index).placa,
                                         style: TextStyle(
-                                            color: Colors.indigoAccent,
+                                            color: Colors.blueGrey[800],
                                             fontSize: 20))
                                   ]
                               ),
@@ -241,13 +241,13 @@ class _HomeState extends State<Home> {
                                     TextSpan(text: 'Distância Média por Litro (km/L):',
                                         style: TextStyle(
                                           fontWeight: FontWeight.bold,
-                                          color: Colors.black,
+                                          color: Colors.blueGrey[600],
                                           fontSize: 20,
                                         )
                                     ),
                                     TextSpan(text: ' colocar aqui',
                                         style: TextStyle(
-                                            color: Colors.black,
+                                            color: Colors.blueGrey[400],
                                             fontSize: 20))
                                   ]
                               ),
@@ -259,13 +259,13 @@ class _HomeState extends State<Home> {
                                     TextSpan(text: 'Custo Médio por km (R\$/km):',
                                         style: TextStyle(
                                           fontWeight: FontWeight.bold,
-                                          color: Colors.black,
+                                          color: Colors.blueGrey[600],
                                           fontSize: 20,
                                         )
                                     ),
                                     TextSpan(text: ' colocar aqui',
                                         style: TextStyle(
-                                            color: Colors.black,
+                                            color: Colors.blueGrey[400],
                                             fontSize: 20))
                                   ]
                               ),
@@ -279,13 +279,12 @@ class _HomeState extends State<Home> {
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: <Widget>[
                                 IconButton(
-                                  icon: Icon(Icons.pageview),
+                                  icon: Icon(Icons.pageview, color: Colors.grey[400]),
                                   iconSize: 40,
                                   onPressed: () => showDialog(context: context, builder: (context) => ExibirAbastecimentos()),
                                 ),
                                 IconButton(
-                                    icon: Icon(Icons.delete),
-                                    disabledColor: Colors.green,
+                                    icon: Icon(Icons.delete, color: Colors.grey[400],),
                                     iconSize: 40,
                                     onPressed: (){
                                       return showDialog<void>(
@@ -314,10 +313,7 @@ class _HomeState extends State<Home> {
                                             ],
                                           );
                                         },
-                                      );
-
-//                                      base.deleteCarro(selecionado);
-                                    }
+                                      );                                    }
                                 ),
                               ],
                             )
@@ -338,7 +334,8 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Carfuel', style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+        backgroundColor: Colors.blueGrey[800],
+        title: Text('Carfuel', style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: Colors.white),
         ),
       ),
       body: _getBody(),
@@ -348,9 +345,9 @@ class _HomeState extends State<Home> {
           debugPrint('$_index');
         }),
         iconSize: 50,
-        backgroundColor: Colors.green,
-        unselectedItemColor: Colors.red,
-        selectedItemColor: Colors.amber,
+        backgroundColor: Colors.blueGrey[800],
+        unselectedItemColor: Colors.white,
+        selectedItemColor: Colors.limeAccent,
         currentIndex: _index,
         items: [
           BottomNavigationBarItem(
