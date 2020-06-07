@@ -25,7 +25,7 @@ class _HomeState extends State<Home> {
 
   Future<String> _calcular () async {
     var buscar = await calcula.mediaGeral();
-    setState(() {
+    this.setState(() {
       calculo = buscar;
     });
     return 'ok';
@@ -45,6 +45,7 @@ class _HomeState extends State<Home> {
     _exibirCarros();
     switch(_index) {
       case 0:
+        _calcular();
         return Container(
           child: Column(
             children: <Widget>[
@@ -63,7 +64,7 @@ class _HomeState extends State<Home> {
                               SizedBox(
                                 height: 25,
                               ),
-                              Text('Custo Médio por km [GERAL]\n(R\$/L)',
+                              Text('Custo Médio por km\n(R\$/L)',
                               textAlign:TextAlign.center,
                               style: TextStyle(
                                 fontSize: 25,
@@ -108,7 +109,7 @@ class _HomeState extends State<Home> {
                               SizedBox(
                                 height: 25,
                               ),
-                              Text('Distância Média por Litro [GERAL]\n(km/L)',
+                              Text('Distância Média por Litro\n(km/L)',
                                   textAlign:TextAlign.center,
                                   style: TextStyle(
                                       fontSize: 25,
@@ -201,7 +202,7 @@ class _HomeState extends State<Home> {
                       Expanded(
                           flex: 25,
                           child: Image.asset('assets/img/carro.jpg',
-                              height: 50)
+                              height: 120)
                       ),
                       Expanded(
                         flex: 75,
@@ -220,19 +221,58 @@ class _HomeState extends State<Home> {
                                         style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           color: Colors.indigo,
-                                          fontSize: 20,
+                                          fontSize: 22,
                                         )
                                     ),
                                     TextSpan(text: '\n' + _mostrarCarros.elementAt(index).placa,
                                         style: TextStyle(
                                             color: Colors.indigoAccent,
-                                            fontSize: 18))
+                                            fontSize: 20))
                                   ]
                               ),
                               textAlign: TextAlign.start,
                             ),
                             SizedBox(
-                                height: 10
+                                height: 15
+                            ),
+                            RichText(
+                              text: TextSpan(
+                                  children: <TextSpan>[
+                                    TextSpan(text: 'Distância Média por Litro (km/L):',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black,
+                                          fontSize: 20,
+                                        )
+                                    ),
+                                    TextSpan(text: ' colocar aqui',
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 20))
+                                  ]
+                              ),
+                              textAlign: TextAlign.start,
+                            ),
+                            RichText(
+                              text: TextSpan(
+                                  children: <TextSpan>[
+                                    TextSpan(text: 'Custo Médio por km (R\$/km):',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black,
+                                          fontSize: 20,
+                                        )
+                                    ),
+                                    TextSpan(text: ' colocar aqui',
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 20))
+                                  ]
+                              ),
+                              textAlign: TextAlign.start,
+                            ),
+                            SizedBox(
+                              height: 10,
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.end,
@@ -246,7 +286,7 @@ class _HomeState extends State<Home> {
                                 IconButton(
                                     icon: Icon(Icons.delete),
                                     disabledColor: Colors.green,
-                                    iconSize: 60,
+                                    iconSize: 40,
                                     onPressed: (){
                                       return showDialog<void>(
                                         context: context,
@@ -298,7 +338,8 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Carfuel'),
+        title: Text('Carfuel', style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+        ),
       ),
       body: _getBody(),
       bottomNavigationBar: BottomNavigationBar(

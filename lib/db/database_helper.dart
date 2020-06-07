@@ -159,8 +159,6 @@ class DatabaseHelper {
           list[i]["kmAtual"],list[i]['dataAbastecimento'], list[i]["FK_idCarro"]);
       abastecimento.add(a);
     }
-    print(abastecimento.length);
-
     return abastecimento;
   }
 
