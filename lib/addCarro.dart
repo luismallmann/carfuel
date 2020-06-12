@@ -28,7 +28,7 @@ class _CadastrarCarroState extends State<CadastrarCarro> {
     if(dadosAtuais.validate()){
       dadosAtuais.save();
 
-      Carro carro = Carro(null, _modelo, _fabricante, _placa, int.parse(_ano), double.parse(_kmInicial), 1);
+      Carro carro = Carro(null, _modelo, _fabricante, _placa, int.parse(_ano), double.parse(_kmInicial), widget.user.idUsuario);
 
       carro.idCarro = await base.saveCarro(carro);
 

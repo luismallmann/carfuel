@@ -19,14 +19,28 @@ class _HomeState extends State<Home> {
   int selecionado=-1;
   int _index = 0;
   var base = DatabaseHelper();
-  var calcula = Calculos();
-  String calculo;
+  Calculos calcula = Calculos();
   List<Carro> _mostrarCarros;
+  Map<int, String> calculaCusto = new Map();
+  Map<int, String> calculaConsumo = new Map();
 
-  Future<String> _calcular () async {
-    var buscar = await calcula.mediaGeral();
+  void _exibirCarros() async {
+    _mostrarCarros = await base.listarCarros(widget.user.idUsuario);
+  }
+  void _calcular (List<Carro> _mostrarCarros) async {
+    String buscar;
+    int idCar;
+    for(int i = 0; i < _mostrarCarros.length; i++ ){
+      idCar=_mostrarCarros.elementAt(i).idCarro;
+      calculaCusto[idCar] =await calcula.gastoTotal(idCar);
+      calculaConsumo[idCar] =await calcula.mediaVeiculo(idCar);
+    }
+  }
+  /*
+  Future<String> _calcular (int idCarro) async {
+    var buscar = await calcula.gastoGeral(idCarro);
     this.setState(() {
-      calculo = buscar;
+      mediaGasto = buscar*10;
     });
     return 'ok';
   }
@@ -34,18 +48,15 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
-    this._calcular();
+    this._calcular(idCarro);
   }
-
-  void _exibirCarros() async {
-    _mostrarCarros = await base.listarCarros();
-  }
+*/
 
   Widget _getBody(){
     _exibirCarros();
+    _calcular(_mostrarCarros);
     switch(_index) {
       case 0:
-        _calcular();
         return Container(
           color: Colors.blueGrey[200],
           child: Column(
@@ -121,7 +132,7 @@ class _HomeState extends State<Home> {
                                 flex: 1,
                                 child: Container(),
                               ),
-                              Text(calculo,
+                              Text('',
                                   textAlign:TextAlign.center,
                                   style: TextStyle(
                                       fontSize: 80,
@@ -245,7 +256,7 @@ class _HomeState extends State<Home> {
                                           fontSize: 20,
                                         )
                                     ),
-                                    TextSpan(text: ' colocar aqui',
+                                    TextSpan(text: calculaConsumo[_mostrarCarros.elementAt(index).idCarro],
                                         style: TextStyle(
                                             color: Colors.blueGrey[400],
                                             fontSize: 20))
@@ -263,7 +274,7 @@ class _HomeState extends State<Home> {
                                           fontSize: 20,
                                         )
                                     ),
-                                    TextSpan(text: ' colocar aqui',
+                                    TextSpan(text: calculaCusto[_mostrarCarros.elementAt(index).idCarro],
                                         style: TextStyle(
                                             color: Colors.blueGrey[400],
                                             fontSize: 20))
@@ -281,7 +292,7 @@ class _HomeState extends State<Home> {
                                 IconButton(
                                   icon: Icon(Icons.pageview, color: Colors.grey[400]),
                                   iconSize: 40,
-                                  onPressed: () => showDialog(context: context, builder: (context) => ExibirAbastecimentos()),
+                                  onPressed: () => showDialog(context: context, builder: (context) => ExibirAbastecimentos(idCarro: _mostrarCarros.elementAt(index).idCarro)),
                                 ),
                                 IconButton(
                                     icon: Icon(Icons.delete, color: Colors.grey[400],),

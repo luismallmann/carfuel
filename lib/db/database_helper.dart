@@ -110,9 +110,9 @@ class DatabaseHelper {
     return res;
   }
 
-  Future<List<Carro>> listarCarros() async {
+  Future<List<Carro>> listarCarros(int idUsuario) async {
     var dbClient = await db;
-    List<Map> list = await dbClient.rawQuery('SELECT * FROM carro ORDER BY modelo');
+    List<Map> list = await dbClient.rawQuery('SELECT * FROM carro WHERE FK_idUsuario = '+idUsuario.toString()+' ORDER BY idCarro');
     List<Carro> carros = new List();
     for (int i = 0; i < list.length; i++) {
       var c = new Carro(list[i]["idCarro"], list[i]["modelo"], list[i]["fabricante"],
@@ -146,13 +146,14 @@ class DatabaseHelper {
   Future<int> saveAbastecimento(Abastecer a) async {
     var dbClient = await db;
     int res = await dbClient.insert("abastecer", a.toMap());
+
     debugPrint("$res");
     return res;
   }
 
-  Future<List<Abastecer>> listarAbastecimento() async {
+  Future<List<Abastecer>> listarAbastecimentoCarro(int idCarro) async {
     var dbClient = await db;
-    List<Map> list = await dbClient.rawQuery('SELECT * FROM abastecer ORDER BY idAbastecimento');
+    List<Map> list = await dbClient.rawQuery('SELECT * FROM abastecer where FK_idCarro = '+idCarro.toString()+' ORDER BY idAbastecimento');
     List<Abastecer> abastecimento = new List();
     for (int i = 0; i < list.length; i++) {
       var a = new Abastecer(list[i]["idAbastecimento"], list[i]["valor"], list[i]["quantidade"],

@@ -5,17 +5,19 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ExibirAbastecimentos extends StatefulWidget {
+  final int idCarro;
+  const ExibirAbastecimentos({Key key, this.idCarro}): super(key: key);
+
   @override
   _ExibirAbastecimentosState createState() => _ExibirAbastecimentosState();
 }
 
 class _ExibirAbastecimentosState extends State<ExibirAbastecimentos> {
   var base = DatabaseHelper();
-
   List<Abastecer> _listaAbastecidas;
 
   Future<String> _buscarAbastecidas() async {
-    var buscar = await base.listarAbastecimento();
+    var buscar = await base.listarAbastecimentoCarro(widget.idCarro);
 
     setState(() {
       _listaAbastecidas = buscar;

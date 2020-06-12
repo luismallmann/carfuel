@@ -25,7 +25,7 @@ class _CadastrarAbastecimentoState extends State<CadastrarAbastecimento> {
   List<Carro> listaCarros;
 
   Future<String> _exibirCarros() async {
-    var buscar = await base.listarCarros();
+    var buscar = await base.listarCarros(widget.user.idUsuario);
 
     setState(() {
       listaCarros = buscar;
