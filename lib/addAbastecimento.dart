@@ -147,7 +147,6 @@ class _CadastrarAbastecimentoState extends State<CadastrarAbastecimento> {
                         onSaved: (valor) => _quantidade = valor,
                         decoration: InputDecoration(
                             labelText: "Quantidade (litros)",
-
                             hasFloatingPlaceholder: true
                         ),
                         validator: (valor){
@@ -156,7 +155,6 @@ class _CadastrarAbastecimentoState extends State<CadastrarAbastecimento> {
                       ),
                       TextFormField(
                         keyboardType: TextInputType.number,
-                        initialValue: mostraKm,
                         onSaved: (valor) => _kmAtual = valor,
                         decoration: InputDecoration(
                             labelText: "Quilometragem Atual",

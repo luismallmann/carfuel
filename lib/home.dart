@@ -78,7 +78,7 @@ class _HomeState extends State<Home> {
                                 flex: 1,
                                 child: Container(),
                               ),
-                              Text(custoGeral == null ? custoGeral:'--',
+                              Text(custoGeral == null ? '--':custoGeral,
                                   textAlign:TextAlign.center,
                                   style: TextStyle(
                                       fontSize: 50,
@@ -123,7 +123,7 @@ class _HomeState extends State<Home> {
                                 flex: 1,
                                 child: Container(),
                               ),
-                              Text(consumoGeral == null ? consumoGeral:'--',
+                              Text(consumoGeral == null ? '--':consumoGeral,
                                   textAlign:TextAlign.center,
                                   style: TextStyle(
                                       fontSize: 50,
@@ -249,7 +249,7 @@ class _HomeState extends State<Home> {
                                           fontSize: 15,
                                         )
                                     ),
-                                    TextSpan(text: consumo == null ? consumo:' --- ',
+                                    TextSpan(text: consumo == null ? ' --- ':consumo,
                                         style: TextStyle(
                                             color: Colors.blueGrey[400],
                                             fontSize: 15))
@@ -267,7 +267,7 @@ class _HomeState extends State<Home> {
                                           fontSize: 15,
                                         )
                                     ),
-                                    TextSpan(text: custo == null ? custo:' --- ',
+                                    TextSpan(text: custo == null ? ' --- ':custo,
                                         style: TextStyle(
                                             color: Colors.blueGrey[400],
                                             fontSize: 15))
