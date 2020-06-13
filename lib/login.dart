@@ -31,12 +31,11 @@ class _loginpageState extends State<loginpage> {
       form.save();
 
       User user = await base.validateLogin(_email, _password);
-
+      print('passa aqui');
       if(user != null){
         print('cheguei');
         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>Home(user:user)));
       }else {
-
         setState(() {
         test = false;
       });

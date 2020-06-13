@@ -73,7 +73,7 @@ class DatabaseHelper {
 
   Future<User> validateLogin(String email, String password) async {
     var dbClient = await db;
-    User user;
+    User user = new User(null, null, null, null);
     List<Map> list = await dbClient.rawQuery(
         'SELECT * FROM user WHERE email = ? and password = ?',
         [email, password]);
