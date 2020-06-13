@@ -29,7 +29,6 @@ class _CadastrarAbastecimentoState extends State<CadastrarAbastecimento> {
 
     setState(() {
       listaCarros = buscar;
-      print('passei aqui'+listaCarros.length.toString());
     });
     return 'ok';
   }
@@ -108,7 +107,6 @@ class _CadastrarAbastecimentoState extends State<CadastrarAbastecimento> {
                         onChanged: (String selecionado) {
                           setState(() {
                             _FK_idCarro = selecionado;
-                            print(_FK_idCarro);
                           });
                         },
                         value: _FK_idCarro,
@@ -135,7 +133,7 @@ class _CadastrarAbastecimentoState extends State<CadastrarAbastecimento> {
                       TextFormField(
                         onSaved: (valor) => _valor = valor,
                         decoration: InputDecoration(
-                            labelText: "Valor por Litro (R$)",
+                            labelText: "Valor por Litro (R\$)",
                             hasFloatingPlaceholder: true
                         ),
                         keyboardType: TextInputType.number,
@@ -150,6 +148,7 @@ class _CadastrarAbastecimentoState extends State<CadastrarAbastecimento> {
                       ),
                       TextFormField(
                         keyboardType: TextInputType.number,
+                        initialValue: '0',
                         onSaved: (valor) => _kmAtual = valor,
                         decoration: InputDecoration(
                             labelText: "Quilometragem Atual",

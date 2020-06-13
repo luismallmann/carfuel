@@ -35,12 +35,12 @@ class _ExibirAbastecimentosState extends State<ExibirAbastecimentos> {
   @override
   Widget build(BuildContext context) {
     final estiloPrincipal = TextStyle(
-      fontSize: 18,
+      fontSize: 15,
       fontWeight: FontWeight.bold,
       color: Colors.blueGrey[600]
     );
     final estiloConteudo = TextStyle(
-        fontSize: 16,
+        fontSize: 15,
         fontWeight: FontWeight.normal,
         color: Colors.blueGrey[400],
     );
@@ -53,10 +53,10 @@ class _ExibirAbastecimentosState extends State<ExibirAbastecimentos> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Text('  Relatório de Abastecimento',style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),),
+                    Text('  Relatório de Abastecimento',style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),),
                     IconButton(
                       icon: Icon(Icons.exit_to_app, color: Colors.blueGrey[100],),
-                      iconSize: 48,
+                      iconSize: 36,
                       onPressed: () {
                         Navigator.of(context).pop();},
                     ),
@@ -64,7 +64,7 @@ class _ExibirAbastecimentosState extends State<ExibirAbastecimentos> {
                 ),
               ),
               SizedBox(
-                height: 30,
+                height: 10,
               ),
               DataTable(
                 columnSpacing: 0,
@@ -73,9 +73,9 @@ class _ExibirAbastecimentosState extends State<ExibirAbastecimentos> {
                   DataColumn(
                       label: Text('Data', style: estiloPrincipal)),
                   DataColumn(
-                      label: Text('km Atual',style: estiloPrincipal)),
+                      label: Text('km\nAtual',style: estiloPrincipal)),
                   DataColumn(
-                      label: Text('Quantidade (L)',style: estiloPrincipal)),
+                      label: Text('Qnt\n(L)',style: estiloPrincipal)),
                   DataColumn(
                       label: Text('Valor\nLitro (R\$)',style: estiloPrincipal,textAlign: TextAlign.center,)),
                   DataColumn(

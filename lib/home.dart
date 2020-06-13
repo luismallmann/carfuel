@@ -64,7 +64,7 @@ class _HomeState extends State<Home> {
                   Expanded(
                     flex: 1,
                     child: Card(
-                        margin: EdgeInsets.all(40),
+                        margin: EdgeInsets.all(20),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(25.0)),
                         ),
@@ -72,12 +72,12 @@ class _HomeState extends State<Home> {
                           child: Column(
                             children: <Widget>[
                               SizedBox(
-                                height: 25,
+                                height: 10,
                               ),
                               Text('Custo Médio por km\n(R\$/L)',
                               textAlign:TextAlign.center,
                               style: TextStyle(
-                                fontSize: 25,
+                                fontSize: 15,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.blueGrey[800]
                               )),
@@ -85,10 +85,10 @@ class _HomeState extends State<Home> {
                                 flex: 1,
                                 child: Container(),
                               ),
-                              Text(custoGeral,
+                              Text(custoGeral == null ? custoGeral:'--',
                                   textAlign:TextAlign.center,
                                   style: TextStyle(
-                                      fontSize: 80,
+                                      fontSize: 50,
                                       fontWeight: FontWeight.bold,
                                       color: Colors.orange
                                   )),
@@ -98,7 +98,7 @@ class _HomeState extends State<Home> {
                               )
                             ],
                           ),
-                          height: 250,
+                          height: 120,
                         )
                     ),
                   )
@@ -109,7 +109,7 @@ class _HomeState extends State<Home> {
                   Expanded(
                     flex: 1,
                     child: Card(
-                        margin: EdgeInsets.all(40),
+                        margin: EdgeInsets.all(20),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(25.0)),
                         ),
@@ -117,12 +117,12 @@ class _HomeState extends State<Home> {
                           child: Column(
                             children: <Widget>[
                               SizedBox(
-                                height: 25,
+                                height: 10,
                               ),
                               Text('Distância Média por Litro\n(km/L)',
                                   textAlign:TextAlign.center,
                                   style: TextStyle(
-                                      fontSize: 25,
+                                      fontSize: 15,
                                       fontWeight: FontWeight.bold,
                                       color: Colors.blueGrey[800]
                                   )),
@@ -130,10 +130,10 @@ class _HomeState extends State<Home> {
                                 flex: 1,
                                 child: Container(),
                               ),
-                              Text(consumoGeral,
+                              Text(consumoGeral == null ? consumoGeral:'--',
                                   textAlign:TextAlign.center,
                                   style: TextStyle(
-                                      fontSize: 80,
+                                      fontSize: 50,
                                       fontWeight: FontWeight.bold,
                                       color: Colors.green
                                   )),
@@ -143,7 +143,7 @@ class _HomeState extends State<Home> {
                               )
                             ],
                           ),
-                          height: 250,
+                          height: 120,
                         )
                     ),
                   )
@@ -157,8 +157,8 @@ class _HomeState extends State<Home> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   ButtonTheme(
-                    height: 80,
-                      minWidth: 250,
+                    height: 50,
+                      minWidth: 160,
                       child: RaisedButton.icon(
                         onPressed: () =>
                             showDialog(context: context,
@@ -170,13 +170,13 @@ class _HomeState extends State<Home> {
                             borderRadius: BorderRadius.all(
                                 Radius.circular(10.0))
                         ),
-                        icon: Icon(Icons.add_circle, size: 60,),
-                        label: Text('Abastecimento', style: TextStyle(fontSize: 20)),
+                        icon: Icon(Icons.add_circle, size: 30,),
+                        label: Text('Abastecimento', style: TextStyle(fontSize: 15)),
                       )
                   ),
                   ButtonTheme(
-                    minWidth: 250,
-                    height: 80,
+                    minWidth: 160,
+                    height: 50,
                     child: RaisedButton.icon(
                       onPressed: () =>
                           showDialog(context: context,
@@ -187,8 +187,8 @@ class _HomeState extends State<Home> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(10.0)),
                       ),
-                      icon: Icon(Icons.add_circle, size: 60,),
-                      label: Text('Veículo', style: TextStyle(fontSize: 20),),
+                      icon: Icon(Icons.add_circle, size: 30,),
+                      label: Text('Veículo', style: TextStyle(fontSize: 15)),
                     ),
                   )
                 ],
@@ -204,6 +204,8 @@ class _HomeState extends State<Home> {
         return ListView.builder(
             itemCount: _mostrarCarros.length,
             itemBuilder: (BuildContext context, int index) {
+              String consumo = calculaConsumo[_mostrarCarros.elementAt(index).idCarro];
+              String custo = calculaCusto[_mostrarCarros.elementAt(index).idCarro];
               return Card(
                   child: Row(
                     children: <Widget>[
@@ -211,7 +213,7 @@ class _HomeState extends State<Home> {
                       Expanded(
                           flex: 25,
                           child: Image.asset('assets/img/carro.jpg',
-                              height: 120)
+                              height: 80)
                       ),
                       Expanded(
                         flex: 75,
@@ -219,7 +221,7 @@ class _HomeState extends State<Home> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             SizedBox(
-                                height: 15
+                                height: 5
                             ),
                             RichText(
                               text: TextSpan(
@@ -230,13 +232,13 @@ class _HomeState extends State<Home> {
                                         style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           color: Colors.blueGrey[800],
-                                          fontSize: 22,
+                                          fontSize: 18,
                                         )
                                     ),
                                     TextSpan(text: '\n' + _mostrarCarros.elementAt(index).placa,
                                         style: TextStyle(
                                             color: Colors.blueGrey[800],
-                                            fontSize: 20))
+                                            fontSize: 18))
                                   ]
                               ),
                               textAlign: TextAlign.start,
@@ -251,13 +253,13 @@ class _HomeState extends State<Home> {
                                         style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           color: Colors.blueGrey[600],
-                                          fontSize: 20,
+                                          fontSize: 15,
                                         )
                                     ),
-                                    TextSpan(text: calculaConsumo[_mostrarCarros.elementAt(index).idCarro],
+                                    TextSpan(text: consumo == null ? consumo:' --- ',
                                         style: TextStyle(
                                             color: Colors.blueGrey[400],
-                                            fontSize: 20))
+                                            fontSize: 15))
                                   ]
                               ),
                               textAlign: TextAlign.start,
@@ -269,13 +271,13 @@ class _HomeState extends State<Home> {
                                         style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           color: Colors.blueGrey[600],
-                                          fontSize: 20,
+                                          fontSize: 15,
                                         )
                                     ),
-                                    TextSpan(text: calculaCusto[_mostrarCarros.elementAt(index).idCarro],
+                                    TextSpan(text: custo == null ? custo:' --- ',
                                         style: TextStyle(
                                             color: Colors.blueGrey[400],
-                                            fontSize: 20))
+                                            fontSize: 15))
                                   ]
                               ),
                               textAlign: TextAlign.start,
@@ -289,12 +291,12 @@ class _HomeState extends State<Home> {
                               children: <Widget>[
                                 IconButton(
                                   icon: Icon(Icons.pageview, color: Colors.grey[400]),
-                                  iconSize: 40,
+                                  iconSize: 30,
                                   onPressed: () => showDialog(context: context, builder: (context) => ExibirAbastecimentos(idCarro: _mostrarCarros.elementAt(index).idCarro)),
                                 ),
                                 IconButton(
                                     icon: Icon(Icons.delete, color: Colors.grey[400],),
-                                    iconSize: 40,
+                                    iconSize: 30,
                                     onPressed: (){
                                       return showDialog<void>(
                                         context: context,
@@ -306,7 +308,7 @@ class _HomeState extends State<Home> {
                                               FlatButton(
                                                 child: Text('Confirmar'),
                                                 onPressed: () {
-                                                  base.deleteCarro(index);
+                                                  base.deleteCarro(_mostrarCarros.elementAt(index).idCarro);
                                                   setState(() {
                                                     _getBody();
                                                   });
@@ -353,7 +355,7 @@ class _HomeState extends State<Home> {
           _index = index;
           debugPrint('$_index');
         }),
-        iconSize: 50,
+        iconSize: 30,
         backgroundColor: Colors.blueGrey[800],
         unselectedItemColor: Colors.white,
         selectedItemColor: Colors.limeAccent,
@@ -361,13 +363,13 @@ class _HomeState extends State<Home> {
         items: [
           BottomNavigationBarItem(
               icon: Icon(Icons.home),
-              title: Text('Home',style: TextStyle(fontSize: 20))),
+              title: Text('Home',style: TextStyle(fontSize: 16))),
           BottomNavigationBarItem(
               icon:Icon(Icons.train),
-              title: Text('Veículos',style: TextStyle(fontSize: 20))),
+              title: Text('Veículos',style: TextStyle(fontSize: 16))),
           BottomNavigationBarItem(
               icon: Icon(Icons.supervised_user_circle),
-              title: Text('Perfil',style: TextStyle(fontSize: 20)))
+              title: Text('Perfil',style: TextStyle(fontSize: 16)))
         ],
       ),
     );

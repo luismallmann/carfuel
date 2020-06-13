@@ -31,24 +31,24 @@ class _loginpageState extends State<loginpage> {
       form.save();
 
       User user = await base.validateLogin(_email, _password);
-      //quando criar o banco trocar.. user != null
+
       if(user != null){
+        print('cheguei');
         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>Home(user:user)));
-      }else{
+      }else {
+
         setState(() {
-          test = false;
-        });
-        Future.delayed(
+        test = false;
+      });
+      Future.delayed(
           Duration(
-            seconds: 3
-          ),
-            (){
-            setState(() {
-              test = true;
-            });
-            }
-        );
-     }
+            seconds: 3,
+          ), () {
+        setState(() {
+          test = true;
+        });
+      });
+    }
     }
   }
   @override
@@ -56,7 +56,7 @@ class _loginpageState extends State<loginpage> {
     final emailField = TextFormField(
       onSaved: (valor) => _email = valor,
       validator: (valor){
-        return valor.length < 10 ? 'usuario > 10 carac' : null;
+        return valor.length < 10 ? 'O Campo Usuário deve possuir mais que 10 caracteres' : null;
       },
       decoration: InputDecoration(
         hintText: 'Email',
@@ -66,7 +66,7 @@ class _loginpageState extends State<loginpage> {
     final passwordField = TextFormField(
       onSaved: (valor) => _password = valor,
       validator: (valor){
-        return valor.length < 10 ? 'senha > 10 carac' : null;
+        return valor.length < 6 ? 'O Campo Senha deve possuir mais que 6 caracteres' : null;
       },
       decoration: InputDecoration(
         hintText: 'Senha',
@@ -81,7 +81,7 @@ class _loginpageState extends State<loginpage> {
               seconds: 2,
             ),
             curve: Curves.slowMiddle,
-            color: test ? Colors.greenAccent : Colors.blueGrey,
+            color: test ? Colors.grey : Colors.redAccent,
             height: MediaQuery.of(context).size.height,
             child: Padding(
               padding: const EdgeInsets.all(36),
@@ -94,9 +94,8 @@ class _loginpageState extends State<loginpage> {
                     Column(
                       children: <Widget>[
                         Image.asset(
-                          'assets/img/carfuelSplash.png', width: 100,//color:  valida ? Colors.black : Colors.red,
+                          'assets/img/carfuelSplash.png', width: 100
                 ),
-                        Text('ajustar validação senha'),
                         Text(
                           test ? '' : 'Dados inválidos!',
                           style: TextStyle(
@@ -117,18 +116,37 @@ class _loginpageState extends State<loginpage> {
                     SizedBox(
                       height: 35,
                     ),
-                    RaisedButton(
-                      color: Colors.blue,
-                      elevation: 5.0,
-                      child: Text('Login'),
-                      onPressed: _validarLogin,
+                    ButtonTheme(
+                      minWidth: 160,
+                      height: 50,
+                      child: RaisedButton.icon(
+                        onPressed: _validarLogin,
+                        textColor: Colors.white,
+                        color: Colors.green,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                        ),
+                        icon: Icon(Icons.home, size: 35,),
+                        label: Text('Entrar', style: TextStyle(fontSize: 18)),
+                      ),
                     ),
                     SizedBox(
                       height: 15,
                     ),
-                    FlatButton(
+                    ButtonTheme(
+                      minWidth: 160,
+                      height: 50,
+                      child: RaisedButton.icon(
                         onPressed: () => showDialog(context: context, builder: (context) => CadastrarUsuario()),
-                        child: Text('Registre-se', style: TextStyle(fontSize: 25, color: Colors.orange)))
+                        textColor: Colors.white,
+                        color: Colors.deepOrangeAccent,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                        ),
+                        icon: Icon(Icons.account_box, size: 35,),
+                        label: Text('Cadastrar', style: TextStyle(fontSize: 18)),
+                      ),
+                    ),
                   ],
                 ),
               ),

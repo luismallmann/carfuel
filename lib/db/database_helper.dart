@@ -136,9 +136,11 @@ class DatabaseHelper {
 
   Future<int> deleteCarro(int idCar) async {
     var dbClient = await db;
-    int res = await dbClient.rawDelete('DELETE FROM carro WHERE idCarro = ?', [idCar]);
 
-    print(idCar);
+    print('id='+idCar.toString());
+
+    int res = await dbClient.rawDelete('DELETE FROM carro WHERE idCarro = '+idCar.toString());
+
     print(idCar+res);
     debugPrint("$res");
     return res;
