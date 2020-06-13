@@ -23,28 +23,26 @@ class _HomeState extends State<Home> {
   List<Carro> _mostrarCarros;
   Map<int, String> calculaCusto = new Map();
   Map<int, String> calculaConsumo = new Map();
+  String consumoGeral = '0.00';
+  String custoGeral = '0.00';
 
   void _exibirCarros() async {
     _mostrarCarros = await base.listarCarros(widget.user.idUsuario);
   }
-  void _calcular (List<Carro> _mostrarCarros) async {
+  void _calcular (List<Carro> _mostrarCarros, int idUser) async {
     String buscar;
     int idCar;
     for(int i = 0; i < _mostrarCarros.length; i++ ){
       idCar=_mostrarCarros.elementAt(i).idCarro;
-      calculaCusto[idCar] =await calcula.gastoTotal(idCar);
+      calculaCusto[idCar] =await calcula.gastoVeiculo(idCar);
       calculaConsumo[idCar] =await calcula.mediaVeiculo(idCar);
     }
+
+    custoGeral = await calcula.gastoTotal(idUser);
+    consumoGeral = await calcula.mediaTotal(idUser);
+
   }
   /*
-  Future<String> _calcular (int idCarro) async {
-    var buscar = await calcula.gastoGeral(idCarro);
-    this.setState(() {
-      mediaGasto = buscar*10;
-    });
-    return 'ok';
-  }
-
   @override
   void initState() {
     super.initState();
@@ -54,7 +52,7 @@ class _HomeState extends State<Home> {
 
   Widget _getBody(){
     _exibirCarros();
-    _calcular(_mostrarCarros);
+    _calcular(_mostrarCarros, widget.user.idUsuario);
     switch(_index) {
       case 0:
         return Container(
@@ -87,7 +85,7 @@ class _HomeState extends State<Home> {
                                 flex: 1,
                                 child: Container(),
                               ),
-                              Text('22.22',
+                              Text(custoGeral,
                                   textAlign:TextAlign.center,
                                   style: TextStyle(
                                       fontSize: 80,
@@ -132,7 +130,7 @@ class _HomeState extends State<Home> {
                                 flex: 1,
                                 child: Container(),
                               ),
-                              Text('',
+                              Text(consumoGeral,
                                   textAlign:TextAlign.center,
                                   style: TextStyle(
                                       fontSize: 80,

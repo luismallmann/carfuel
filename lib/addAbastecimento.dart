@@ -135,7 +135,7 @@ class _CadastrarAbastecimentoState extends State<CadastrarAbastecimento> {
                       TextFormField(
                         onSaved: (valor) => _valor = valor,
                         decoration: InputDecoration(
-                            labelText: "Valor (Reais)",
+                            labelText: "Valor por Litro (R$)",
                             hasFloatingPlaceholder: true
                         ),
                         keyboardType: TextInputType.number,

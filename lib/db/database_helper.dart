@@ -122,6 +122,18 @@ class DatabaseHelper {
     return carros;
   }
 
+  Future<List<Carro>> detalhaCarro(int idCarro) async {
+    var dbClient = await db;
+    List<Map> list = await dbClient.rawQuery('SELECT * FROM carro WHERE idCarro ='+idCarro.toString());
+    List<Carro> carros = new List();
+    for (int i = 0; i < list.length; i++) {
+      var c = new Carro(list[i]["idCarro"], list[i]["modelo"], list[i]["fabricante"],
+          list[i]["placa"], list[i]["ano"], list[i]["kmInicial"], list[i]["FK_idUsuario"]);
+      carros.add(c);
+    }
+    return carros;
+  }
+
   Future<int> deleteCarro(int idCar) async {
     var dbClient = await db;
     int res = await dbClient.rawDelete('DELETE FROM carro WHERE idCarro = ?', [idCar]);
