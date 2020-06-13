@@ -2,7 +2,9 @@ import 'package:carfuel/db/database_helper.dart';
 import 'package:carfuel/home.dart';
 import 'package:carfuel/models/carro.dart';
 import 'package:carfuel/models/usuario.dart';
+import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class CadastrarCarro extends StatefulWidget {
   final User user;
@@ -85,6 +87,7 @@ class _CadastrarCarroState extends State<CadastrarCarro> {
                       ),
                       TextFormField(
                         onSaved: (valor) => _modelo = valor,
+                        keyboardType: TextInputType.text,
                         decoration: InputDecoration(
                             labelText: "Modelo",
                             hasFloatingPlaceholder: true
@@ -92,6 +95,7 @@ class _CadastrarCarroState extends State<CadastrarCarro> {
                       ),
                       TextFormField(
                         onSaved: (valor) => _fabricante = valor,
+                        keyboardType: TextInputType.text,
                         decoration: InputDecoration(
                             labelText: "Fabricante",
                             hasFloatingPlaceholder: true
@@ -99,6 +103,8 @@ class _CadastrarCarroState extends State<CadastrarCarro> {
                       ),
                       TextFormField(
                         onSaved: (valor) => _placa = valor,
+                        maxLength: 9,
+                        keyboardType: TextInputType.text,
                         decoration: InputDecoration(
                             labelText: "Placa",
                             hasFloatingPlaceholder: true
@@ -106,18 +112,27 @@ class _CadastrarCarroState extends State<CadastrarCarro> {
                       ),
                       TextFormField(
                         onSaved: (valor) => _ano = valor,
-                        decoration: InputDecoration(
+                          initialValue: '2020',
+                          maxLength: 4,
+                          keyboardType: TextInputType.number,
+                          decoration: InputDecoration(
                             labelText: "Ano de Fabricação",
                             hasFloatingPlaceholder: true
                         ),
-                          keyboardType: TextInputType.datetime
+                        validator: (valor){
+                          return int.parse(valor) <=1900 || int.parse(valor) >=2100 ? 'Ano Inválido' : null;
+                        },
                       ),
                       TextFormField(
                         onSaved: (valor) => _kmInicial = valor,
+                        keyboardType: TextInputType.number,
                         decoration: InputDecoration(
                             labelText: "Quilometragem Inicial",
                             hasFloatingPlaceholder: true
                         ),
+                        validator: (valor){
+                          return int.parse(valor) <= 0 ? 'Deve ser maior que 0,00' : null;
+                        },
                       ),
                       FlatButton(
                         color: Colors.green,

@@ -23,6 +23,7 @@ class _CadastrarAbastecimentoState extends State<CadastrarAbastecimento> {
   String _dataAbastecimento;
   final dadosAbastecimento = new GlobalKey<FormState>();
   List<Carro> listaCarros;
+  String mostraKm;
 
   Future<String> _exibirCarros() async {
     var buscar = await base.listarCarros(widget.user.idUsuario);
@@ -137,23 +138,38 @@ class _CadastrarAbastecimentoState extends State<CadastrarAbastecimento> {
                             hasFloatingPlaceholder: true
                         ),
                         keyboardType: TextInputType.number,
+                        validator: (valor){
+                          return int.parse(valor) <= 0 ? 'Deve ser maior que 0,00' : null;
+                        },
                       ),
                       TextFormField(
                         keyboardType: TextInputType.number,
                         onSaved: (valor) => _quantidade = valor,
                         decoration: InputDecoration(
                             labelText: "Quantidade (litros)",
+
                             hasFloatingPlaceholder: true
                         ),
+                        validator: (valor){
+                          return int.parse(valor) <= 0 ? 'Deve ser maior que 0,00' : null;
+                        },
                       ),
                       TextFormField(
                         keyboardType: TextInputType.number,
-                        initialValue: '0',
+                        initialValue: mostraKm,
                         onSaved: (valor) => _kmAtual = valor,
                         decoration: InputDecoration(
                             labelText: "Quilometragem Atual",
                             hasFloatingPlaceholder: true
                         ),
+                        onTap: (){
+                          setState(() {
+                            mostraKm = _FK_idCarro;
+                          });
+                        },
+                        validator: (valor){
+                          return int.parse(valor) <= 0 ? 'Deve ser maior que o atual' : null;
+                        },
                       ),
                       FlatButton(
                         color: Colors.green,

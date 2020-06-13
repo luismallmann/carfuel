@@ -23,6 +23,7 @@ class _loginpageState extends State<loginpage> {
   String _password = "";
   final formLogin = new GlobalKey<FormState>();
   var base = DatabaseHelper();
+  bool senhaVisivel = false;
 
   void _validarLogin() async{
     final form = formLogin.currentState;
@@ -53,9 +54,10 @@ class _loginpageState extends State<loginpage> {
   @override
   Widget build(BuildContext context) {
     final emailField = TextFormField(
-      onSaved: (valor) => _email = valor,
+      keyboardType: TextInputType.emailAddress,
+      onSaved: (valor) => _email = valor.trim(),
       validator: (valor){
-        return valor.length < 10 ? 'O Campo Usuário deve possuir mais que 10 caracteres' : null;
+        return valor.length < 10 ? 'O Email deve possuir mais que 10 caracteres' : null;
       },
       decoration: InputDecoration(
         hintText: 'Email',
@@ -63,12 +65,23 @@ class _loginpageState extends State<loginpage> {
     );
 
     final passwordField = TextFormField(
-      onSaved: (valor) => _password = valor,
+      onSaved: (valor) => _password = valor.trim(),
+      obscureText: senhaVisivel,
       validator: (valor){
-        return valor.length < 6 ? 'O Campo Senha deve possuir mais que 6 caracteres' : null;
+        return valor.length < 6 ? 'A Senha deve possuir mais que 6 caracteres' : null;
       },
       decoration: InputDecoration(
         hintText: 'Senha',
+          suffixIcon: IconButton(
+            icon: Icon(
+                senhaVisivel ? Icons.visibility : Icons.visibility_off, color: Colors.black,
+            ),
+            onPressed: (){
+              setState(() {
+                senhaVisivel ? senhaVisivel = false : senhaVisivel = true;
+              });
+            },
+          )
       ),
     );
 
@@ -138,7 +151,7 @@ class _loginpageState extends State<loginpage> {
                       child: RaisedButton.icon(
                         onPressed: () => showDialog(context: context, builder: (context) => CadastrarUsuario()),
                         textColor: Colors.white,
-                        color: Colors.deepOrangeAccent,
+                        color: Colors.indigo,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(10.0)),
                         ),

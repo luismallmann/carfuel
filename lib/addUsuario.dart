@@ -12,6 +12,7 @@ class _CadastrarUsuarioState extends State<CadastrarUsuario> {
   String _nome = "";
   String _email = "";
   String _senha = "";
+  bool senhaVisivel = false;
 
   final dadosCadastro = new GlobalKey<FormState>();
 
@@ -40,6 +41,7 @@ class _CadastrarUsuarioState extends State<CadastrarUsuario> {
       }
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -74,35 +76,59 @@ class _CadastrarUsuarioState extends State<CadastrarUsuario> {
                         height: 100,
                       ),
                       TextFormField(
-                        onSaved: (valor) => _nome = valor,
+                        onSaved: (valor) => _nome = valor.trim(),
                         decoration: InputDecoration(
                             labelText: "Nome",
                             hasFloatingPlaceholder: true
                         ),
                       ),
                       TextFormField(
-                        onSaved: (valor) => _email = valor,
+                        onSaved: (valor) => _email = valor.trim(),
+                        keyboardType: TextInputType.emailAddress,
                         decoration: InputDecoration(
                             labelText: "Email",
                             hasFloatingPlaceholder: true
                         ),
                       ),
                       TextFormField(
-                        onSaved: (valor) => _senha = valor,
+                        onSaved: (valor) => _senha = valor.trim(),
+                        obscureText: senhaVisivel,
                         decoration: InputDecoration(
                             labelText: "Senha",
-                            hasFloatingPlaceholder: true
+                            hasFloatingPlaceholder: true,
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                                senhaVisivel ? Icons.visibility : Icons.visibility_off
+                            ),
+                            onPressed: (){
+                              setState(() {
+                                senhaVisivel ? senhaVisivel = false : senhaVisivel = true;
+                              });
+                            },
+                          ),
                         ),
                       ),
                       Text(
                         "A senha deve conter no mínimo 6 caracteres",
                         style: TextStyle(color: Colors.grey),
                       ),
-                      FlatButton(
-                        color: Colors.green,
-                        child: Text('Cadastrar'),
-                        onPressed: _adicionarUsuario,
-                      )
+                      SizedBox(
+                        height: 15,
+                      ),
+                      ButtonTheme(
+                  minWidth: 160,
+                  height: 35,
+                  child: RaisedButton.icon(
+                    onPressed: _adicionarUsuario,
+                    textColor: Colors.white,
+                    color: Colors.indigo,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                    ),
+                    icon: Icon(Icons.add_circle_outline, size: 25,),
+                    label: Text('Cadastrar', style: TextStyle(fontSize: 18)),
+                  ),
+                      ),
                     ],
                   ),
                 ),

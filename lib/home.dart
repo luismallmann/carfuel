@@ -42,13 +42,6 @@ class _HomeState extends State<Home> {
     consumoGeral = await calcula.mediaTotal(idUser);
 
   }
-  /*
-  @override
-  void initState() {
-    super.initState();
-    this._calcular(idCarro);
-  }
-*/
 
   Widget _getBody(){
     _exibirCarros();
