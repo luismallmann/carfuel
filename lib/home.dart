@@ -7,6 +7,8 @@ import 'package:carfuel/models/carro.dart';
 import 'package:carfuel/models/usuario.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 
 class Home extends StatefulWidget {
   final User user;
@@ -300,6 +302,7 @@ class _HomeState extends State<Home> {
                                             actions: <Widget>[
                                               FlatButton(
                                                 child: Text('Confirmar'),
+                                                color: Colors.green,
                                                 onPressed: () {
                                                   base.deleteCarro(_mostrarCarros.elementAt(index).idCarro);
                                                   setState(() {
@@ -310,6 +313,7 @@ class _HomeState extends State<Home> {
                                               ),
                                               FlatButton(
                                                 child: Text('Cancelar'),
+                                                color: Colors.red,
                                                 onPressed: () {
                                                   Navigator.of(context).pop();
                                                 },
@@ -329,8 +333,27 @@ class _HomeState extends State<Home> {
               );
             }
         );
-      case 2: return Container(
-        color: Colors.black,
+      case 2: return AlertDialog(
+        title: Text('Sair'),
+        content: const Text('Deseja sair?'),
+        actions: <Widget>[
+          FlatButton(
+            color: Colors.green,
+            child: Text('Sim'),
+            onPressed: () {
+              SystemNavigator.pop();
+            },
+          ),
+          FlatButton(
+            color: Colors.red,
+            onPressed: (){
+              setState(() {
+                _index=0;
+              });
+    },
+            child: Text('Não'),
+          ),
+        ],
       );
     }
   }
@@ -361,8 +384,8 @@ class _HomeState extends State<Home> {
               icon:Icon(Icons.train),
               title: Text('Veículos',style: TextStyle(fontSize: 16))),
           BottomNavigationBarItem(
-              icon: Icon(Icons.supervised_user_circle),
-              title: Text('Perfil',style: TextStyle(fontSize: 16)))
+              icon: Icon(Icons.exit_to_app),
+              title: Text('Sair',style: TextStyle(fontSize: 16)))
         ],
       ),
     );
