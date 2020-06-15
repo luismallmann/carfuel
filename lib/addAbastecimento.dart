@@ -156,18 +156,13 @@ class _CadastrarAbastecimentoState extends State<CadastrarAbastecimento> {
                       TextFormField(
                         keyboardType: TextInputType.number,
                         onSaved: (valor) => _kmAtual = valor,
+                        controller: TextEditingController(
+                          text: _FK_idCarro == null ? null:listaCarros.firstWhere((element) => element.idCarro == int.parse(_FK_idCarro)).kmInicial.toString() ,
+                        ),
                         decoration: InputDecoration(
                             labelText: "Quilometragem Atual",
                             hasFloatingPlaceholder: true
                         ),
-                        onTap: (){
-                          setState(() {
-                            mostraKm = _FK_idCarro;
-                          });
-                        },
-                        validator: (valor){
-                          return int.parse(valor) <= 0 ? 'Deve ser maior que o atual' : null;
-                        },
                       ),
                       FlatButton(
                         color: Colors.green,

@@ -23,7 +23,7 @@ class _loginpageState extends State<loginpage> {
   String _password = "";
   final formLogin = new GlobalKey<FormState>();
   var base = DatabaseHelper();
-  bool senhaVisivel = false;
+  bool senhaVisivel = true;
 
   void _validarLogin() async{
     final form = formLogin.currentState;

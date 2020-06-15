@@ -12,7 +12,7 @@ class _CadastrarUsuarioState extends State<CadastrarUsuario> {
   String _nome = "";
   String _email = "";
   String _senha = "";
-  bool senhaVisivel = false;
+  bool senhaVisivel = true;
 
   final dadosCadastro = new GlobalKey<FormState>();
 
